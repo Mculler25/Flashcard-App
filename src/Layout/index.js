@@ -5,6 +5,7 @@ import Header from "./Header";
 import NotFound from "./NotFound";
 import Study from "../Study-Page/Study"
 import CreateDeck from "../CreateDeck/CreateDeck";
+import DeckPage from "../Decks/DeckPage";
 
 /* TODO: Implement the screen starting here */
 
@@ -45,6 +46,9 @@ function Layout() {
         </Route>
         <Route path="/decks/new">
           <CreateDeck decks={decks}/>
+        </Route>
+        <Route path="/decks/:deckId">
+          <DeckPage />
         </Route>
         <Route path="*">
           <NotFound />
