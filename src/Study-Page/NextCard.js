@@ -9,7 +9,17 @@ function NextCard({cards}){
 
     function handleNextBtn(){
         setId(id += 1);
-        setfrontOrBack(false)
+        setfrontOrBack(false);
+        if(cards.length < id){
+                const comfirm = window.confirm("Reset Deck?")
+                if(comfirm){
+                    setId(1);
+                    setfrontOrBack(false);
+                } else {
+                    history.push("/")
+                }
+            } 
+        
     }
     console.log(id);
     return(
