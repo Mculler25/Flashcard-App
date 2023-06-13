@@ -1,9 +1,10 @@
 import React, { useState , useEffect } from "react";
 import { Link , Switch , Route } from "react-router-dom"
+import { listDecks } from "../utils/api";
 import Header from "./Header";
 import NotFound from "./NotFound";
 import Study from "../Study-Page/Study"
-import { listDecks } from "../utils/api";
+import CreateDeck from "../CreateDeck/CreateDeck";
 
 /* TODO: Implement the screen starting here */
 
@@ -13,6 +14,13 @@ function Layout() {
   useEffect(() => {
     listDecks().then(data => setDecks(data));
   }, [])
+
+  function addDeck(newDeck){
+    setDecks([
+      ...decks ,
+      newDeck
+    ])
+  }
 
   return (
     <>
@@ -34,6 +42,9 @@ function Layout() {
         </Route>
         <Route path="/decks/:deckId/study">
             <Study />
+        </Route>
+        <Route path="/decks/new">
+          <CreateDeck decks={decks}/>
         </Route>
         <Route path="*">
           <NotFound />
