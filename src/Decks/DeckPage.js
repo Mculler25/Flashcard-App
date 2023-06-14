@@ -14,7 +14,6 @@ function DeckPage(){
                 setCards(data.cards)
             })
     }, [deckId])
-    console.log(cards)
 
     return (
         <div className="container">
@@ -29,8 +28,8 @@ function DeckPage(){
             <div>
                 <h3>{currentDeck.name}</h3>
                 <p>{currentDeck.description}</p>
-                <Link to="/" className="btn btn=secondary m-2">Edit</Link>
-                <Link to="/decks/:deckId/study" className="btn btn-primary m-2">Study</Link>
+                <Link to={`/decks/${currentDeck.id}/edit`} className="btn btn-secondary m-2">Edit</Link>
+                <Link to={`/decks/${currentDeck.id}/study`} className="btn btn-primary m-2">Study</Link>
                 <Link to="/" className="btn btn-primary m-2">Add Cards</Link>
                 <Link to="/" className="btn btn-danger m-2">Delete</Link>
             </div>
