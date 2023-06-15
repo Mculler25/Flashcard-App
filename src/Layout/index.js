@@ -8,14 +8,19 @@ import CreateDeck from "../Deck/CreateDeck";
 import DeckPage from "../Decks/DeckPage";
 import EditDeck from "../Deck/EditDeck";
 import AddCards from "../Cards/AddCards";
+import EditCard from "../Cards/EditCard";
 
 /* TODO: Implement the screen starting here */
 
 function Layout() {
   const [decks, setDecks] = useState([]);
+  const [cards , setCards ] = useState([])
 
   useEffect(() => {
-    listDecks().then(data => setDecks(data));
+    listDecks().then(data => {
+      setDecks(data)
+      setCards(data.cards)
+    });
   }, [])
 
 
@@ -51,6 +56,9 @@ function Layout() {
         </Route>
         <Route path="/decks/:deckId/cards/new">
           <AddCards decks={decks} setDecks={setDecks} />
+        </Route>
+        <Route path="/decks/:deckId/cards/:cardId/edit">
+          <EditCard decks={decks} setDecks={setDecks} cards={cards} setCards={setCards}/>
         </Route>
         <Route path="*">
           <NotFound />

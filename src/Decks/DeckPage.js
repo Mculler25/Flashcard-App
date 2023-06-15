@@ -14,7 +14,7 @@ function DeckPage(){
                 setCards(data.cards)
             })
     }, [deckId])
-    console.log(currentDeck)
+
     return (
         <div className="container">
             <div> 

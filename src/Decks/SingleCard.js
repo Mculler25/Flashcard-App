@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function SingleCard({currentCard}){
     return (
@@ -9,7 +10,7 @@ function SingleCard({currentCard}){
                 </div>
                 <div className="w-100 p-2">
                     <p>{currentCard.back}</p>
-                    <button className="btn btn-secondary m-2">Edit</button>
+                    <Link to={`/decks/${currentCard.deckId}/cards/${currentCard.id}/edit`} className="btn btn-secondary m-2">Edit</Link>
                     <button className="btn btn-danger m-2">Delete</button>
                 </div>
             </div>

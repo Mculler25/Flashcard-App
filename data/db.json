@@ -11,8 +11,8 @@
       "id": 2
     },
     {
-      "name": "John",
-      "description": "this is john",
+      "name": "this is a editied card",
+      "description": "editied card",
       "id": 3
     }
   ],
@@ -30,10 +30,9 @@
       "deckId": 1
     },
     {
-      "id": 3,
-      "front": "How do you pass data 'down' to a React child component?",
-      "back": "As properties or props",
-      "deckId": 1
+      "front": "this is card 1(edited)",
+      "back": "k(edited)",
+      "id": 3
     },
     {
       "front": "What path will match the follow Route?\n<Route>\n  <NotFound />\n</Route>",
@@ -55,9 +54,9 @@
       "id": 7
     },
     {
-      "front": "this is card 1",
-      "back": "k",
-      "deckId": 3,
+      "front": "the is an editied card",
+      "back": "edited",
+      "deckId": "3",
       "id": 8
     },
     {
