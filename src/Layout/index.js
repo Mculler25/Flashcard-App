@@ -4,9 +4,10 @@ import { listDecks } from "../utils/api";
 import Header from "./Header";
 import NotFound from "./NotFound";
 import Study from "../Study-Page/Study"
-import CreateDeck from "../CreateDeck/CreateDeck";
+import CreateDeck from "../Deck/CreateDeck";
 import DeckPage from "../Decks/DeckPage";
-import EditDeck from "../EditDeck/EditDeck";
+import EditDeck from "../Deck/EditDeck";
+import AddCards from "../Cards/AddCards";
 
 /* TODO: Implement the screen starting here */
 
@@ -18,7 +19,6 @@ function Layout() {
   }, [])
 
 
-  console.log(decks)
   return (
     <>
       <Header />
@@ -47,7 +47,10 @@ function Layout() {
           <DeckPage />
         </Route>
         <Route path="/decks/:deckId/edit">
-          <EditDeck />
+          <EditDeck decks={decks} setDecks={setDecks}/>
+        </Route>
+        <Route path="/decks/:deckId/cards/new">
+          <AddCards decks={decks} setDecks={setDecks} />
         </Route>
         <Route path="*">
           <NotFound />
