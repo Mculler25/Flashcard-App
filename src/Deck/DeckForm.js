@@ -1,8 +1,12 @@
-import React , { useState } from "react";
+import React , { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function DeckForm({initialFormData , headerText , submitHandler, editedFormData}){
+function DeckForm({initialFormData , headerText , submitHandler}){
     const [formData , setFormData] = useState(initialFormData);
+
+    useEffect(() => {
+        setFormData(initialFormData)
+    }, [initialFormData])
 
     const handleInput = (e) => {
         setFormData({
@@ -10,16 +14,11 @@ function DeckForm({initialFormData , headerText , submitHandler, editedFormData}
             [e.target.name] : e.target.value
         })
     }
-    console.log(formData);
+    
     function handleFormSubmit(event) {
         event.preventDefault();
-        console.log(formData)
-        if(formData.id){
-            submitHandler(formData);
-            setFormData(editedFormData);
-        }
         submitHandler(formData);
-        setFormData({ ...initialFormData });
+        setFormData({ ...formData });
       }
 
     return (
@@ -40,7 +39,7 @@ function DeckForm({initialFormData , headerText , submitHandler, editedFormData}
             </div>
             <div>
                 <Link to="/" className="btn btn-secondary m-2 p-2">Cancel</Link>
-                <input type="submit" />
+                <button className="btn btn-primary">Submit</button>
             </div>
         </form>
     )

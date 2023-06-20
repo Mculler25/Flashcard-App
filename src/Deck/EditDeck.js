@@ -10,26 +10,13 @@ function EditDeck({ decks, setDecks }) {
     name: "",
     description: "",
   });
-  const [currentDeck , setCurrentDeck] = useState([])
+  
 
   useEffect(() => {
-    const abortController = new AbortController();
 
-    async function loadDeck() {
-      try {
-        setCurrentDeck(await readDeck(deckId, abortController.signal));
-        setInitialFormData({
-          name: currentDeck.name,
-          description: currentDeck.description,
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    }
+    readDeck(deckId)
+      .then(data => setInitialFormData(data))
 
-    loadDeck();
-
-    return () => abortController.abort();
   }, [deckId]);
 
 
@@ -55,7 +42,7 @@ function EditDeck({ decks, setDecks }) {
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item"><Link to="/">Home</Link></li>
-                        <li className="breadcrumb-item text-primary">{currentDeck.name}</li>
+                        <li className="breadcrumb-item text-primary">{initialFormData.name}</li>
                         <li className="breadcrumb-item" aria-current="page">Edit Deck</li>
                     </ol>
                 </nav>
@@ -64,6 +51,7 @@ function EditDeck({ decks, setDecks }) {
                 initialFormData={initialFormData}
                 headerText="Edit Deck"
                 submitHandler={handleUpdateDeck}
+      
             />
         </div>
     )

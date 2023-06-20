@@ -18,7 +18,7 @@ function Study () {
     }, [deckId])
 
     return (
-        <>
+        <div className="container">
             <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
                     <li className="breadcrumb-item"><Link to="/">Home</Link></li>
@@ -26,11 +26,11 @@ function Study () {
                     <li className="breadcrumb-item active" aria-current="page">Study</li>
                 </ol>
             </nav>
-            <div>
+            <div className="container">
                 <h1>Study: {currentDeck.name}</h1>
                 <NextCard cards={cards}/>
             </div>
-        </>
+        </div>
     )
     
 }

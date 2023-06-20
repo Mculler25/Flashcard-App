@@ -1,6 +1,6 @@
 import React, { useState , useEffect } from "react";
-import { Link , Switch , Route } from "react-router-dom"
-import { listDecks } from "../utils/api";
+import { Link , Switch , Route , useHistory } from "react-router-dom"
+import { listDecks , deleteDeck } from "../utils/api";
 import Header from "./Header";
 import NotFound from "./NotFound";
 import Study from "../Study-Page/Study"
@@ -15,6 +15,7 @@ import EditCard from "../Cards/EditCard";
 function Layout() {
   const [decks, setDecks] = useState([]);
   const [cards , setCards ] = useState([])
+  const history = useHistory();
 
   useEffect(() => {
     listDecks().then(data => {
@@ -24,21 +25,35 @@ function Layout() {
   }, [])
 
 
+  function deleteHandler(deckId) {
+    deleteDeck(deckId)
+      .then(() => {
+        const updatedDecks = decks.filter((deck) => deck.id !== deckId);
+        setDecks(updatedDecks);
+        history.push("/")
+      })
+      .catch((error) => {
+        // Handle any error that occurred during deletion
+        console.log(error);
+      });
+  }
+
+
   return (
     <>
       <Header />
       <Switch>
         <Route path="/" exact>
           <div className="container">
-            <Link to="/decks/new" className="btn btn-secondary">+Create Deck</Link>
+            <Link to="/decks/new" className="btn btn-secondary"><span className="oi oi-plus"></span>Create Deck</Link>
                 {decks.map((deck) => 
                 <div className="border border-dark mt-3 p-3">
                   <p>{deck.cards ? deck.cards.length : 0 } cards</p>
                   <h3>{deck.name}</h3>
                   <p>{deck.description}</p>
-                  <Link to={`/decks/${deck.id}`} className="btn btn-secondary m-2">View</Link>
-                  <Link to={`/decks/${deck.id}/study`} className="btn btn-primary m-2">Study</Link>
-                  <button className="btn btn-danger m-2">delete</button>
+                  <Link to={`/decks/${deck.id}`} className="btn btn-secondary m-2"><span className="oi oi-eye"></span>View</Link>
+                  <Link to={`/decks/${deck.id}/study`} className="btn btn-primary m-2"><span className="oi oi-book"></span>Study</Link>
+                  <button className="btn btn-danger m-2" onClick={() => deleteHandler(deck.id)}><span className="oi oi-trash"></span></button>
                 </div>)}
           </div>
         </Route>
@@ -49,7 +64,7 @@ function Layout() {
           <CreateDeck setDecks={setDecks} decks={decks}/>
         </Route>
         <Route path="/decks/:deckId" exact>
-          <DeckPage />
+          <DeckPage setDecks={setDecks}/>
         </Route>
         <Route path="/decks/:deckId/edit">
           <EditDeck decks={decks} setDecks={setDecks}/>

@@ -1,25 +1,26 @@
-import React , { useState } from "react";
+import React , { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function CardForm({initialFormData , headerText , submitHandler, editedFormData}){
+function CardForm({initialFormData , headerText , submitHandler, isEdit}){
     const [formData , setFormData] = useState(initialFormData);
-
+    
+    
+    useEffect(() => {
+        setFormData(initialFormData)
+    }, [initialFormData])
+    
     const handleInput = (e) => {
         setFormData({
             ...formData ,
             [e.target.name] : e.target.value
         })
     }
-    console.log(formData);
+
     function handleFormSubmit(event) {
         event.preventDefault();
-        console.log(formData)
-        if(formData.id){
-            submitHandler(formData);
-            setFormData(editedFormData);
-        }
         submitHandler(formData);
-        setFormData({ ...initialFormData });
+        setFormData({ ...formData});
+        
       }
 
     return (
@@ -27,8 +28,8 @@ function CardForm({initialFormData , headerText , submitHandler, editedFormData}
             <h3>{headerText}</h3>
             <div>
                 <label htmlFor="front" className="mt-3">Front</label>
-                <input 
-                type="text" name="front" id="front" spellCheck="true" placeholder={formData.front === "" ? "Card Front" : formData.front} value={formData.front} onChange={handleInput} className="w-100 p-2"
+                <textarea 
+                 row="5" col="40" name="front" id="front" spellCheck="true" placeholder={isEdit !== "yes" ? "Card Front" : formData.front} value={formData.front} onChange={handleInput} className="w-100 p-2"
                 />
             </div>
             <div>
