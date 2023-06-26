@@ -20,22 +20,26 @@ function Layout() {
   useEffect(() => {
     listDecks().then(data => {
       setDecks(data)
-      setCards(data.cards)
-    });
+    })
   }, [])
 
 
   function deleteHandler(deckId) {
-    deleteDeck(deckId)
-      .then(() => {
-        const updatedDecks = decks.filter((deck) => deck.id !== deckId);
-        setDecks(updatedDecks);
-        history.push("/")
-      })
-      .catch((error) => {
-        // Handle any error that occurred during deletion
-        console.log(error);
-      });
+    if(window.confirm("do you want to delete this deck?")){
+      deleteDeck(deckId)
+        .then(() => {
+          const updatedDecks = decks.filter((deck) => deck.id !== deckId);
+          setDecks(updatedDecks);
+          history.push("/")
+          window.location.reload()
+        })
+        .catch((error) => {
+          // Handle any error that occurred during deletion
+          console.log(error);
+        });
+    } else {
+      window.location.reload()
+    }
   }
 
 
@@ -47,7 +51,7 @@ function Layout() {
           <div className="container">
             <Link to="/decks/new" className="btn btn-secondary"><span className="oi oi-plus"></span>Create Deck</Link>
                 {decks.map((deck) => 
-                <div className="border border-dark mt-3 p-3">
+                <div className="border border-dark mt-3 p-3" key={deck.id}>
                   <p>{deck.cards ? deck.cards.length : 0 } cards</p>
                   <h3>{deck.name}</h3>
                   <p>{deck.description}</p>
@@ -70,10 +74,10 @@ function Layout() {
           <EditDeck decks={decks} setDecks={setDecks}/>
         </Route>
         <Route path="/decks/:deckId/cards/new">
-          <AddCards decks={decks} setDecks={setDecks} />
+          <AddCards decks={decks} />
         </Route>
         <Route path="/decks/:deckId/cards/:cardId/edit">
-          <EditCard decks={decks} setDecks={setDecks} cards={cards} setCards={setCards}/>
+          <EditCard />
         </Route>
         <Route path="*">
           <NotFound />

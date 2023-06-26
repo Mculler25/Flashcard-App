@@ -5,10 +5,10 @@ import { useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { createCard, readDeck } from "../utils/api";
 
-function AddCards({decks , setDecks}){
+function AddCards(){
     const history = useHistory();
     const { deckId } = useParams();
-    const [ cards , setCards ] = useState(decks.cards)
+    const [ cards , setCards ] = useState([])
     const [currentDeck, setCurrentDeck ]= useState([])
 
     const initialFormData = {
@@ -20,12 +20,13 @@ function AddCards({decks , setDecks}){
     useEffect(() => {
         readDeck(deckId)
             .then(data => setCurrentDeck(data))
-    },[])
+            .then(() => setCards(currentDeck.cards))
+    },[deckId])
 
     const submitHandler = (formData) => {
        createCard(formData.deckId , formData)
         .then(data => setCards([...cards, data]))
-        .then(window.location.reload())
+        .then(history.push(`/decks/${deckId}`))
     }
     return (
         <div className="container">
@@ -33,7 +34,7 @@ function AddCards({decks , setDecks}){
                 <nav aria-label="breadcrumb">
                         <ol className="breadcrumb">
                             <li className="breadcrumb-item"><Link to="/">Home</Link></li>
-                            <li className="breadcrumb-item"><Link to={`/decks/${deckId}`}></Link>{currentDeck.name}</li>
+                            <li className="breadcrumb-item"><Link to={`/decks/${deckId}`}>{currentDeck.name}</Link></li>
                             <li className="breadcrumb-item" aria-current="page">Add Card</li>
                         </ol>
                     </nav>

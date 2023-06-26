@@ -31,13 +31,13 @@
     },
     {
       "front": "What path will match the follow Route?\n<Route>\n  <NotFound />\n</Route>",
-      "back": "All paths. A route with no path matches all URL's",
+      "back": "haha ",
       "deckId": 2,
       "id": 4
     },
     {
       "front": "What does <Switch> do?",
-      "back": "Renders the first matching child <Route> ",
+      "back": "Renders are cool. ",
       "deckId": 2,
       "id": 5
     },
@@ -47,6 +47,24 @@
       "back": "b the best",
       "deckId": 1,
       "id": 7
+    },
+    {
+      "front": "this is a card",
+      "back": "dsfs",
+      "deckId": 2,
+      "id": 8
+    },
+    {
+      "front": "sdfs",
+      "back": "dsf",
+      "deckId": 2,
+      "id": 9
+    },
+    {
+      "front": "sdfs",
+      "back": "sdfsdf",
+      "deckId": 2,
+      "id": 10
     }
   ]
 }

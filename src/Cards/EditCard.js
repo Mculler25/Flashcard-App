@@ -3,11 +3,12 @@ import { useParams, useHistory, Link } from "react-router-dom";
 import { readCard, readDeck, updateCard } from "../utils/api";
 import CardForm from "./CardForm";
 
-function EditCard({cards, setCards }) {
+function EditCard() {
   const { deckId , cardId } = useParams();
   const history = useHistory();
   const [initialFormData, setInitialFormData] = useState({});
   const [currentDeck , setCurrentDeck] = useState([])
+  
 
   useEffect(() => {
 
@@ -30,10 +31,8 @@ function EditCard({cards, setCards }) {
         deckId : Number(deckId),
         id: cardId,
       });
-        setCards(
-          cards.map((card) => (card.id === updatedCard.id ? updatedCard : card))
-        );
-      history.push(`/decks/${deckId}/cards/${cardId}`);
+          currentDeck.cards.map((card) => (card.id === updatedCard.id ? updatedCard : card))
+      history.push(`/decks/${deckId}`)
     } catch (error) {
       console.log(error);
     }
