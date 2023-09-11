@@ -1,5 +1,5 @@
 
-# Flash Card App
+# Flashcard Study Application
 
 Use this application to create decks of flashcard to help you study.
 
